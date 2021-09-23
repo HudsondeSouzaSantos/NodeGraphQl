@@ -16,7 +16,7 @@ const { ProvidedRequiredArgumentsOnDirectivesRule } = require("graphql/validatio
  * --> SDL
  */
 
- const produtos = [
+const produtos = [
     {
         id: 1,
         nome: "Notebook",
@@ -65,6 +65,8 @@ type Produto {
  type Query {
      usuarios: [Usuario]
      produtos: [Produto]
+     usuario(id:Int, nome: String): Usuario
+     produto(id:Int, nome: String, valor: Float) : Produto
  }
 `;
 
@@ -76,6 +78,26 @@ const resolvers = {
 
         produtos() {
             return produtos;
+        },
+        usuario(_, args) {
+            const { id, nome } = args;
+            if (id)
+                return usuarios.find(usuario => usuario.id == id);
+
+            return usuarios.find(usuario => usuario.nome == nome)
+                ;
+        },
+        produto(_, args) {
+            const { id, nome, valor } = args;
+            if (id) {
+                return produtos.find(produto => produto.id == id);
+            } else {
+                if (nome) {
+                    return produtos.find(produto => produto.nome == nome);
+                } else {
+                    return produtos.find(produto => produto.valor == valor);
+                }
+            }
         }
     }
 };
