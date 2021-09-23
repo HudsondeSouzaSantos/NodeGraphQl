@@ -16,6 +16,7 @@ const { gql , ApolloServer } = require( "apollo-server" );
      nome: String
      ativo: Boolean
      id: ID
+     tecnologias: [String!]!
  }
 `;
 
@@ -35,6 +36,9 @@ const resolvers = {
         },
         id() {
             return 123456789;
+        },
+        tecnologias() {
+            return ['GraphQL','ReactJS','CSS',null];
         }
     }
 };
