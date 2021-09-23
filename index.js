@@ -1,4 +1,5 @@
-const { gql , ApolloServer } = require( "apollo-server" );
+const { gql, ApolloServer } = require("apollo-server");
+const { ProvidedRequiredArgumentsOnDirectivesRule } = require("graphql/validation/rules/ProvidedRequiredArgumentsRule");
 
 /**
  * Scalar Types
@@ -15,7 +16,37 @@ const { gql , ApolloServer } = require( "apollo-server" );
  * --> SDL
  */
 
- const typeDefs = gql`
+ const produtos = [
+    {
+        id: 1,
+        nome: "Notebook",
+        valor: 4520.02
+    },
+    {
+        id: 2,
+        nome: "Monitor",
+        valor: 420.67
+    }
+];
+
+const usuarios = [
+    {
+        id: 1,
+        nome: "Paulo",
+        salario: 10.01,
+        ativo: true,
+        idade: 23
+    },
+    {
+        id: 2,
+        nome: "João",
+        salario: 20.02,
+        ativo: false,
+        idade: 32
+    }
+];
+
+const typeDefs = gql`
 
 type Usuario {
     idade : Int
@@ -25,28 +56,33 @@ type Usuario {
     id: ID
 }
 
+type Produto {
+    id: ID
+    nome: String
+    valor: Float
+}
+
  type Query {
-     usuario: Usuario
+     usuarios: [Usuario]
+     produtos: [Produto]
  }
 `;
 
 const resolvers = {
     Query: {
-        usuario(){
-            return {
-                id: 1,
-                nome: "Paulo",
-                salario: 10.01,
-                ativo: true,
-                idade: 23
-            }
+        usuarios() {
+            return usuarios;
+        },
+
+        produtos() {
+            return produtos;
         }
     }
 };
 
-const server = new ApolloServer( {
+const server = new ApolloServer({
     typeDefs,
     resolvers
-} );
+});
 
 server.listen();
