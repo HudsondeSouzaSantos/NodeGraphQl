@@ -9,36 +9,37 @@ const { gql , ApolloServer } = require( "apollo-server" );
  * - ID
  */
 
+/**
+ * ==> Schema
+ * --> Schema Definition Language ou LInguage de Definição de Esquema
+ * --> SDL
+ */
+
  const typeDefs = gql`
+
+type Usuario {
+    idade : Int
+    salario: Float
+    nome: String
+    ativo: Boolean
+    id: ID
+}
+
  type Query {
-     idade : Int
-     salario: Float
-     nome: String
-     ativo: Boolean
-     id: ID
-     tecnologias: [String!]!
+     usuario: Usuario
  }
 `;
 
 const resolvers = {
     Query: {
-        idade() {
-            return 18;
-        },
-        salario() {
-            return 1234.56;
-        },
-        nome() {
-            return 'Graph QL';
-        },
-        ativo() {
-            return true;
-        },
-        id() {
-            return 123456789;
-        },
-        tecnologias() {
-            return ['GraphQL','ReactJS','CSS',null];
+        usuario(){
+            return {
+                id: 1,
+                nome: "Paulo",
+                salario: 10.01,
+                ativo: true,
+                idade: 23
+            }
         }
     }
 };
