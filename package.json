@@ -1,7 +1,6 @@
 {
   "name": "NodeGraphQl",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemons",
@@ -24,5 +23,6 @@
   "dependencies": {
     "apollo-server": "^3.3.0",
     "graphql": "^15.6.0"
-  }
+  },
+  "description": ""
 }
