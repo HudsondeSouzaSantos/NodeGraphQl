@@ -32,7 +32,7 @@ const produtos = [
 const usuarios = [
     {
         id: 1,
-        nome: "Paulo",
+        nome: "Paulo 2",
         salario: 10.01,
         ativo: true,
         idade: 23
